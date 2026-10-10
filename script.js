@@ -181,22 +181,17 @@ form?.addEventListener("submit", async event => {
     return;
   }
 
-  const packageDetails = selectedPackage
-    ? `Выбранный пакет: ${selectedPackage.course}. ` +
-      `Количество занятий: ${selectedPackage.lessons}. ` +
-      `Стоимость: ${selectedPackage.price}.`
-    : "Пакет занятий пока не выбран.";
-
   const lead = {
-    name,
-    exam,
-    contactType,
-    contact,
-    message: [packageDetails, originalMessage]
-      .filter(Boolean)
-      .join("\nКомментарий ученика: "),
-    website
-  };
+  name,
+  exam,
+  contactType,
+  contact,
+  course: selectedPackage?.course || "",
+  lessons: selectedPackage?.lessons || "",
+  price: selectedPackage?.price || "",
+  message: originalMessage,
+  website
+};
 
   if (!WORKER_URL) {
     feedback.textContent = "Не настроен адрес обработчика заявок.";
