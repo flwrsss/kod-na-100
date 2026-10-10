@@ -91,12 +91,15 @@
       <div class="shell signup-wrap">
         <div class="signup-copy reveal"><div class="eyebrow"><span class="section-number">04</span> / ПЕРВЫЙ ШАГ</div><h2>ДАВАЙ<br>РАЗБЕРЁМСЯ<span class="lime">.</span></h2><p>Расскажи, к какому экзамену готовишься и что хочется подтянуть. Согласуем формат и время занятия.</p><div class="signup-note"><span class="live-dot"></span> Без обязательств — сначала обсудим задачу</div></div>
         <form class="signup-form reveal" id="lead-form">
-          <label>Как тебя зовут?<input name="name" placeholder="Имя" required maxlength="80"></label>
+          <label>Как тебя зовут?<input name="name" placeholder="Имя ученика" required maxlength="80" autocomplete="name"></label>
           <label>К чему готовишься?<select name="exam" required><option value="" disabled selected>Выбери экзамен</option><option>ОГЭ по информатике</option><option>ЕГЭ по информатике</option><option>Пока не уверен(а)</option></select></label>
+          <label>Как с тобой связаться?<select name="contactType" required><option value="" disabled selected>Выбери способ связи</option><option value="Телефон">Номер телефона</option><option value="Telegram">Telegram</option><option value="VK">ВКонтакте (VK)</option></select></label>
+          <label>Номер или ссылка/ник для связи<input name="contact" placeholder="Например, @username или +7…" required maxlength="160" autocomplete="off"></label>
           <label>Какая тема вызывает трудности?<textarea name="message" rows="3" placeholder="Например: Python, логика, алгоритмы…" maxlength="500"></textarea></label>
-          <button class="button button-lime form-submit" type="submit">Подготовить заявку <span>↗</span></button>
-          <p class="form-hint">Кнопка откроет сообщение в Telegram. Перед публикацией укажи свой username в файле script.js.</p>
-          <div class="form-feedback" id="form-feedback" role="status"></div>
+          <label class="website-field" aria-hidden="true">Не заполняй это поле<input name="website" tabindex="-1" autocomplete="off"></label>
+          <button class="button button-lime form-submit" type="submit">Отправить заявку <span>↗</span></button>
+          <p class="form-hint">Заявка придёт администратору школы в Telegram. Используй контакт, по которому с тобой можно связаться.</p>
+          <div class="form-feedback" id="form-feedback" role="status" aria-live="polite"></div>
         </form>
       </div>
     </section>
