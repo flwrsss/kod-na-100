@@ -2,3 +2,191 @@
 
 /* Honeypot anti-spam field: hidden from real visitors. */
 .website-field { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+/* === PRICING TABLES: KOD NA 100 === */
+.pricing-section {
+  padding: 88px 0;
+}
+
+.price-table-wrap {
+  width: 100%;
+  margin: 36px 0 48px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 18px;
+  background: #151714;
+}
+
+.price-table-title {
+  padding: 28px 30px;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  background: #20251f;
+}
+
+.price-table-title h3 {
+  margin: 12px 0 8px;
+  font-size: clamp(25px, 3vw, 36px);
+}
+
+.price-table-title p {
+  margin: 0;
+  color: #c2c8bc;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  color: #f5f6f1;
+}
+
+.price-table th,
+.price-table td {
+  padding: 20px 22px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.price-table th {
+  color: #c7f36b;
+  background: #1b1e19;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.price-table td {
+  font-size: 15px;
+}
+
+.price-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.price-table tbody tr:hover {
+  background: rgba(199,243,107,.045);
+}
+
+.price-table del {
+  color: #92988d;
+  white-space: nowrap;
+}
+
+.price-table .price-current {
+  color: #c7f36b;
+  font-size: 17px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.price-discount {
+  display: inline-block;
+  padding: 6px 9px;
+  border: 1px solid rgba(199,243,107,.28);
+  border-radius: 7px;
+  background: rgba(199,243,107,.1);
+  color: #c7f36b;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.price-table-featured {
+  background: rgba(199,243,107,.055);
+}
+
+.price-table-button {
+  margin: 22px 30px 28px;
+}
+
+@media (max-width: 700px) {
+  .pricing-section {
+    padding: 56px 0;
+  }
+
+  .price-table-wrap {
+    margin: 26px 0 34px;
+    border-radius: 14px;
+  }
+
+  .price-table-title {
+    padding: 22px 18px;
+  }
+
+  .price-table {
+    display: block;
+    padding: 12px;
+  }
+
+  .price-table thead {
+    display: none;
+  }
+
+  .price-table tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  .price-table tbody tr {
+    display: block;
+    padding: 8px 14px;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 12px;
+    background: #1b1e19;
+  }
+
+  .price-table tbody tr.price-table-featured {
+    border-color: rgba(199,243,107,.55);
+    background: rgba(199,243,107,.07);
+  }
+
+  .price-table tbody td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(255,255,255,.09);
+    text-align: right;
+    font-size: 14px;
+  }
+
+  .price-table tbody td:last-child {
+    border-bottom: 0;
+  }
+
+  .price-table tbody td:nth-child(1)::before {
+    content: "Формат";
+  }
+
+  .price-table tbody td:nth-child(2)::before {
+    content: "Занятий";
+  }
+
+  .price-table tbody td:nth-child(3)::before {
+    content: "Обычная цена";
+  }
+
+  .price-table tbody td:nth-child(4)::before {
+    content: "Цена пакета";
+  }
+
+  .price-table tbody td:nth-child(5)::before {
+    content: "Ваша выгода";
+  }
+
+  .price-table tbody td::before {
+    color: #aeb5a6;
+    font-size: 12px;
+    text-align: left;
+  }
+
+  .price-table .price-current {
+    font-size: 16px;
+  }
+
+  .price-table-button {
+    display: flex;
+    justify-content: center;
+    margin: 8px 14px 20px;
+    text-align: center;
+  }
+}
