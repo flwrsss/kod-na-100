@@ -1,9 +1,7 @@
-/*
-  КОД НА 100 — настройка сайта.
-  1) Впиши свой Telegram username без символа @ в TELEGRAM_USERNAME.
-  2) Если пока нет Telegram, замени обработчик формы на свой способ связи.
-*/
-const TELEGRAM_USERNAME = "im_flowerz";
+/* КОД НА 100 — отправка заявок через бесплатный Cloudflare Worker.
+   После публикации Worker вставь его URL в WORKER_URL ниже.
+   Не размещай токен Telegram-бота в этом файле: он хранится только в Cloudflare. */
+const WORKER_URL = "PASTE_YOUR_CLOUDFLARE_WORKER_URL_HERE";
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -33,24 +31,48 @@ document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 document.querySelectorAll("[data-track]").forEach(link => {
   link.addEventListener("click", () => {
     const select = document.querySelector('select[name="exam"]');
-    if (select) {
-      select.value = link.dataset.track === "ОГЭ" ? "ОГЭ по информатике" : "ЕГЭ по информатике";
-    }
+    if (select) select.value = link.dataset.track === "ОГЭ" ? "ОГЭ по информатике" : "ЕГЭ по информатике";
   });
 });
 
-document.getElementById("lead-form")?.addEventListener("submit", event => {
+const form = document.getElementById("lead-form");
+form?.addEventListener("submit", async event => {
   event.preventDefault();
-  const form = event.currentTarget;
-  const data = new FormData(form);
-  const name = String(data.get("name") || "").trim();
-  const exam = String(data.get("exam") || "").trim();
-  const message = String(data.get("message") || "").trim();
-  const text = `Здравствуйте! Хочу узнать о занятиях в школе «Код на 100».%0AИмя: ${encodeURIComponent(name)}%0AЭкзамен: ${encodeURIComponent(exam)}%0AТрудности: ${encodeURIComponent(message || "Пока не указаны")}`;
   const feedback = document.getElementById("form-feedback");
-  if (!TELEGRAM_USERNAME || TELEGRAM_USERNAME === "YOUR_TELEGRAM_USERNAME") {
-    feedback.textContent = "Сайт почти готов! В файле script.js укажи свой Telegram username вместо YOUR_TELEGRAM_USERNAME, чтобы заявки отправлялись тебе.";
+  const button = form.querySelector('button[type="submit"]');
+  const data = new FormData(form);
+  const lead = {
+    name: String(data.get("name") || "").trim(),
+    exam: String(data.get("exam") || "").trim(),
+    contactType: String(data.get("contactType") || "").trim(),
+    contact: String(data.get("contact") || "").trim(),
+    message: String(data.get("message") || "").trim(),
+    website: String(data.get("website") || "").trim()
+  };
+
+  if (!WORKER_URL || WORKER_URL === "PASTE_YOUR_CLOUDFLARE_WORKER_URL_HERE") {
+    feedback.textContent = "Форма почти готова. Нужно завершить настройку бесплатного обработчика заявок — смотри инструкцию в папке cloudflare-worker.";
     return;
   }
-  window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${text}`, "_blank", "noopener,noreferrer");
+
+  button.disabled = true;
+  button.dataset.originalText = button.innerHTML;
+  button.textContent = "Отправляем…";
+  feedback.textContent = "";
+  try {
+    const response = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(lead)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить заявку");
+    feedback.textContent = "Заявка отправлена! Мы свяжемся с тобой выбранным способом.";
+    form.reset();
+  } catch (error) {
+    feedback.textContent = "Не получилось отправить заявку. Попробуй ещё раз чуть позже или напиши нам через контакты школы.";
+  } finally {
+    button.disabled = false;
+    button.innerHTML = button.dataset.originalText || 'Отправить заявку <span>↗</span>';
+  }
 });
