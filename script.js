@@ -1,7 +1,7 @@
 /* КОД НА 100 — отправка заявок через бесплатный Cloudflare Worker.
    После публикации Worker вставь его URL в WORKER_URL ниже.
    Не размещай токен Telegram-бота в этом файле: он хранится только в Cloudflare. */
-const WORKER_URL = "PASTE_YOUR_CLOUDFLARE_WORKER_URL_HERE";
+const WORKER_URL = "https://kod-na-100-leads.flower-t4klan.workers.dev";
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
